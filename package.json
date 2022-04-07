@@ -25,6 +25,7 @@
     "eslint-plugin-promise": "^5.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:staged": "jest"
   }
 }
