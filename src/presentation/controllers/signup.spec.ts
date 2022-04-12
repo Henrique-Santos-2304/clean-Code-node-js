@@ -170,7 +170,7 @@ describe("Signup Controller", () => {
     expect(httpResponse.body).toEqual(new ServerError());
     expect(httpResponse.statusCode).toBe(500);
   });
-  it("Should call AddAccount with correct values", () => {
+  it("Should return 200 if call AddAccount with correct values ", () => {
     const { sut, addAccountStub } = makeSut();
 
     const addSpy = jest.spyOn(addAccountStub, "add");
@@ -184,9 +184,8 @@ describe("Signup Controller", () => {
       },
     };
 
-    const { name, password, email } = httpRequest.body!!;
-
-    sut.handle(httpRequest);
+    const httpResponse = sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(200);
     expect(addSpy).toHaveBeenCalledWith({
       name: "john_do_name",
       email: "invalid_@email.com",
