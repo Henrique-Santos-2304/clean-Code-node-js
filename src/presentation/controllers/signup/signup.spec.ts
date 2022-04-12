@@ -177,7 +177,7 @@ describe("Signup Controller", () => {
     expect(httpResponse.body).toEqual(new ServerError());
     expect(httpResponse.statusCode).toBe(500);
   });
-  it("Should return 200 if call AddAccount with correct values ", () => {
+  it("Should call AddAccount with correct values ", () => {
     const { sut, addAccountStub } = makeSut();
 
     const addSpy = jest.spyOn(addAccountStub, "add");
@@ -190,10 +190,47 @@ describe("Signup Controller", () => {
         passwordConfirmation: "john_doe",
       },
     };
+    sut.handle(httpRequest);
+    expect(addSpy).toHaveBeenCalledWith({
+      name: "john_do_name",
+      email: "invalid_@email.com",
+      password: "john_doe",
+    });
+  });
+  it("Should return 500 if throught error with emailValidator", () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, "add").mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const httpRequest = {
+      body: {
+        name: "john_do_name",
+        email: "invalid_@email.com",
+        password: "john_doe",
+        passwordConfirmation: "john_doe",
+      },
+    };
+
+    const httpResponse = sut.handle(httpRequest);
+    expect(httpResponse.body).toEqual(new ServerError());
+    expect(httpResponse.statusCode).toBe(500);
+  });
+  it("Should return 200 with values correct ", () => {
+    const { sut } = makeSut();
+
+    const httpRequest = {
+      body: {
+        name: "john_do_name",
+        email: "invalid_@email.com",
+        password: "john_doe",
+        passwordConfirmation: "john_doe",
+      },
+    };
 
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(200);
-    expect(addSpy).toHaveBeenCalledWith({
+    expect(httpResponse.body).toEqual({
+      id: "valid_id",
       name: "john_do_name",
       email: "invalid_@email.com",
       password: "john_doe",
