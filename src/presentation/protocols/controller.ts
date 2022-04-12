@@ -1,7 +1,7 @@
 import { HttpRequest, HttpResponse } from "./http";
 
 interface IController {
-  handle(httpRequest: HttpRequest): HttpResponse;
+  handle(httpRequest: HttpRequest): Promise<HttpResponse>;
 }
 
 export { IController };
