@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for errors/missing-param-erros.ts</title>
+    <title>Code coverage report for errors/server-error.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">errors</a> missing-param-erros.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">errors</a> server-error.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -73,20 +73,20 @@
 <a name='L8'></a><a href='#L8'>8</a>
 <a name='L9'></a><a href='#L9'>9</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">class MissingParamError extends Error {
-  constructor(paramName: string) {
-    super(`Mising Param: ${paramName}`);
-    this.name = "MissingParamError";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">class ServerError extends Error {
+  constructor() {
+    super(`Internal Server Error`);
+    this.name = "ServerError";
   }
 }
 &nbsp;
-export { MissingParamError };
+export { ServerError };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

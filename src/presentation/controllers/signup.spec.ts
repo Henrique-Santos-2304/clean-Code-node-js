@@ -1,5 +1,6 @@
 import { InvalidParamError } from "../errors/invalid-param-error";
 import { MissingParamError } from "../errors/missing-param-erros";
+import { ServerError } from "../errors/server-error";
 import { IEmailValidator } from "../protocols/email-validator";
 import { SignUpController } from "./signup";
 
@@ -7,11 +8,10 @@ interface SutTypes {
   sut: SignUpController;
   emailValidatorStub: IEmailValidator;
 }
+class EmailValidatorStub implements IEmailValidator {
+  isValid = (email: string): boolean => true;
+}
 const makeSut = (): SutTypes => {
-  class EmailValidatorStub implements IEmailValidator {
-    isValid = (email: string): boolean => true;
-  }
-
   const emailValidatorStub = new EmailValidatorStub();
   const sut = new SignUpController(emailValidatorStub);
 
@@ -77,22 +77,6 @@ describe("Signup Controller", () => {
       new MissingParamError("passwordConfirmation")
     );
   });
-  it("Should call email validator with correct  email ", () => {
-    const { sut, emailValidatorStub } = makeSut();
-
-    const isValidSpy = jest.spyOn(emailValidatorStub, "isValid");
-    const httpRequest = {
-      body: {
-        name: "john_do_name",
-        email: "invalid_@email.com",
-        password: "john_doe",
-        passwordConfirmation: "john_doe",
-      },
-    };
-
-    sut.handle(httpRequest);
-    expect(isValidSpy).toHaveBeenCalledWith(httpRequest.body.email);
-  });
   it("Should return 400 if an invalid email is provided", () => {
     const { sut, emailValidatorStub } = makeSut();
 
@@ -111,5 +95,43 @@ describe("Signup Controller", () => {
     expect(httpResponse.body).toEqual(
       new InvalidParamError("Email is Invalid")
     );
+  });
+  it("Should call email validator with correct  email ", () => {
+    const { sut, emailValidatorStub } = makeSut();
+
+    const isValidSpy = jest.spyOn(emailValidatorStub, "isValid");
+    const httpRequest = {
+      body: {
+        name: "john_do_name",
+        email: "invalid_@email.com",
+        password: "john_doe",
+        passwordConfirmation: "john_doe",
+      },
+    };
+
+    sut.handle(httpRequest);
+    expect(isValidSpy).toHaveBeenCalledWith(httpRequest.body.email);
+  });
+  it("Should return 500 if throught error with emailValidator", () => {
+    class EmailValidatorStub implements IEmailValidator {
+      isValid = (email: string): boolean => {
+        throw new Error();
+      };
+    }
+
+    const emailValidatorStub = new EmailValidatorStub();
+    const sut = new SignUpController(emailValidatorStub);
+    const httpRequest = {
+      body: {
+        name: "john_do_name",
+        email: "invalid_@email.com",
+        password: "john_doe",
+        passwordConfirmation: "john_doe",
+      },
+    };
+
+    const httpResponse = sut.handle(httpRequest);
+    expect(httpResponse.body).toEqual(new ServerError());
+    expect(httpResponse.statusCode).toBe(500);
   });
 });
