@@ -1,7 +1,6 @@
 import { InvalidParamError } from "../errors/invalid-param-error";
 import { MissingParamError } from "../errors/missing-param-erros";
-import { ServerError } from "../errors/server-error";
-import { badRequest } from "../helper/hel-helper";
+import { badRequest, serverError } from "../helper/hel-helper";
 import { IController } from "../protocols/controller";
 import { IEmailValidator } from "../protocols/email-validator";
 import { HttpRequest, HttpResponse } from "../protocols/http";
@@ -31,7 +30,7 @@ class SignUpController implements IController {
 
       return badRequest(new MissingParamError("No data error"));
     } catch (error) {
-      return { statusCode: 500, body: new ServerError() };
+      return serverError();
     }
   }
 }
