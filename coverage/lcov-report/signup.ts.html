@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>0/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>0/49</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,94 +107,109 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { InvalidParamError, MissingParamError } from "../errors";
-import { badRequest, serverError } from "../helper/hel-helper";
-import {
-  IController,
-  IEmailValidator,
-  HttpRequest,
-  HttpResponse,
-} from "../protocols";
-&nbsp;
-class SignUpController implements IController {
-  private readonly emailValidor: IEmailValidator;
-  constructor(emailValidor: IEmailValidator) {
-    this.emailValidor = emailValidor;
-  }
-  handle(httpRequest: HttpRequest): HttpResponse {
-    try {
-      const fieldsParamRequired = [
-        "name",
-        "email",
-        "password",
-        "passwordConfirmation",
-      ];
-&nbsp;
-      for (const field of fieldsParamRequired) {
-        if (!httpRequest.body[field])
-          return badRequest(new MissingParamError(field));
-      }
-      const { password, passwordConfirmation, email } = httpRequest.body!!;
-&nbsp;
-      if (password !== passwordConfirmation)
-        return badRequest(new InvalidParamError("passwordConfirmation"));
-&nbsp;
-      const isEmailValid = this.emailValidor.isValid(email);
-      if (!isEmailValid)
-        return badRequest(new InvalidParamError("Email is Invalid"));
-&nbsp;
-      return badRequest(new MissingParamError("No data error"));
-    } catch (error) {
-      return serverError();
-    }
-  }
-}
-&nbsp;
-export { SignUpController };
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { IAddAccount } from "../domain/useCases/addAccount";</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { InvalidParamError, MissingParamError } from "../errors";</span>
+<span class="cstat-no" title="statement not covered" >import { badRequest, serverError } from "../helper/hel-helper";</span>
+<span class="cstat-no" title="statement not covered" >import {</span>
+<span class="cstat-no" title="statement not covered" >  IController,</span>
+<span class="cstat-no" title="statement not covered" >  IEmailValidator,</span>
+<span class="cstat-no" title="statement not covered" >  HttpRequest,</span>
+<span class="cstat-no" title="statement not covered" >  HttpResponse,</span>
+<span class="cstat-no" title="statement not covered" >} from "../protocols";</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >class SignUpController implements IController {</span>
+<span class="cstat-no" title="statement not covered" >  private readonly emailValidor: IEmailValidator;</span>
+<span class="cstat-no" title="statement not covered" >  private readonly addAccount: IAddAccount;</span>
+<span class="cstat-no" title="statement not covered" >  constructor(emailValidor: IEmailValidator, addAccount: IAddAccount) {</span>
+<span class="cstat-no" title="statement not covered" >    this.emailValidor = emailValidor;</span>
+<span class="cstat-no" title="statement not covered" >    this.addAccount = addAccount;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >  handle(httpRequest: HttpRequest): HttpResponse {</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      const fieldsParamRequired = [</span>
+<span class="cstat-no" title="statement not covered" >        "name",</span>
+<span class="cstat-no" title="statement not covered" >        "email",</span>
+<span class="cstat-no" title="statement not covered" >        "password",</span>
+<span class="cstat-no" title="statement not covered" >        "passwordConfirmation",</span>
+<span class="cstat-no" title="statement not covered" >      ];</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      for (const field of fieldsParamRequired) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!httpRequest.body[field])</span>
+<span class="cstat-no" title="statement not covered" >          return badRequest(new MissingParamError(field));</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >      const { password, passwordConfirmation, email, name } =</span>
+<span class="cstat-no" title="statement not covered" >        httpRequest.body!!;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      if (password !== passwordConfirmation)</span>
+<span class="cstat-no" title="statement not covered" >        return badRequest(new InvalidParamError("passwordConfirmation"));</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      const isEmailValid = this.emailValidor.isValid(email);</span>
+<span class="cstat-no" title="statement not covered" >      if (!isEmailValid)</span>
+<span class="cstat-no" title="statement not covered" >        return badRequest(new InvalidParamError("Email is Invalid"));</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      const newAccount = this.addAccount.add({ password, email, name });</span>
+<span class="cstat-no" title="statement not covered" >      return { statusCode: 200, body: newAccount };</span>
+<span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >      return serverError();</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export { SignUpController };</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -202,7 +217,7 @@ export { SignUpController };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Apr 11 2022 22:38:10 GMT-0300 (Horário Padrão de Brasília)
+                at Mon Apr 11 2022 23:19:43 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="prettify.js"></script>
         <script>
