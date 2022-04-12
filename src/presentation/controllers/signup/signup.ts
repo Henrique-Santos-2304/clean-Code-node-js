@@ -1,5 +1,5 @@
 import { InvalidParamError, MissingParamError } from "../../errors";
-import { badRequest, serverError } from "../../helper/hel-helper";
+import { badRequest, okResponse, serverError } from "../../helper/hel-helper";
 import {
   IController,
   IEmailValidator,
@@ -39,7 +39,7 @@ class SignUpController implements IController {
         return badRequest(new InvalidParamError("Email is Invalid"));
 
       const newAccount = this.addAccount.add({ password, email, name });
-      return { statusCode: 200, body: newAccount };
+      return okResponse(newAccount);
     } catch (error) {
       return serverError();
     }
