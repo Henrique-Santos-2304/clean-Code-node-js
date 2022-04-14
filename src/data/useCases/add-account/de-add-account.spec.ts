@@ -6,14 +6,18 @@ type SutTypes = {
   encrypterStub: IEncrypter;
 };
 
-const makeSut = (): SutTypes => {
+const makeEncrpter = (): IEncrypter => {
   class EncrypterStub implements IEncrypter {
     async encrypt() {
       return "hashed_password";
     }
   }
 
-  const encrypterStub = new EncrypterStub();
+  return new EncrypterStub();
+};
+
+const makeSut = (): SutTypes => {
+  const encrypterStub = makeEncrpter();
   const sut = new DbAddAccount(encrypterStub);
 
   return { sut, encrypterStub };
