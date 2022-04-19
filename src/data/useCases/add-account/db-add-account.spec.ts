@@ -15,7 +15,7 @@ const makeAddAcountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {
     async add(account: AddAccountModel): Promise<AccountModel> {
       return {
-        id: "valid_id_123",
+        id: "valid_id",
         name: "valid_name",
         email: "valid_email",
         password: "hashed_password",
@@ -98,5 +98,22 @@ describe("DbAccount UseCase", () => {
 
     sut.add(accountData);
     expect(spyOn).rejects.toThrow();
+  });
+  it("Should return an account on sucess", () => {
+    const { sut } = makeSut();
+    jest.spyOn(sut, "add");
+    const accountData = {
+      name: "valid_name",
+      email: "valid_email",
+      password: "valid_password",
+    };
+
+    const account = sut.add(accountData);
+    expect(account).resolves.toEqual({
+      id: "valid_id",
+      name: "valid_name",
+      email: "valid_email",
+      password: "hashed_password",
+    });
   });
 });
