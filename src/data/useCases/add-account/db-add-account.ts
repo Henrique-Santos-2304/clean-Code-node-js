@@ -20,10 +20,9 @@ class DbAddAccount implements IAddAccount {
     const hashedPassword = await this.encrypter.encrypt(accountData.password);
     const newAccount = Object.assign(accountData, {
       password: hashedPassword,
-      id: "valid_id",
     });
-    await this.addAccountRepository.add(newAccount);
-    return newAccount;
+    const account = await this.addAccountRepository.add(newAccount);
+    return account;
   }
 }
 
