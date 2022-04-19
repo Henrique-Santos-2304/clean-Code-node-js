@@ -31,4 +31,10 @@ describe("Bcrypt Adapter", () => {
     const hash = await bcryptAdapterStub.encrypt("any_value");
     expect(hash).toBe("hashed_password");
   });
+  it("should throw if bcrypt throws", async () => {
+    const { bcryptAdapterStub } = makeSut();
+    jest.spyOn(bcrypt, "hash").mockRejectedValueOnce(new Error() as never);
+    const hash = bcryptAdapterStub.encrypt("any_value");
+    await expect(hash).rejects.toThrow();
+  });
 });
