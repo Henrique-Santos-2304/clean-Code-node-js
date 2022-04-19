@@ -85,4 +85,18 @@ describe("DbAccount UseCase", () => {
       password: "valid_password",
     });
   });
+  it("Should throw if encrypted throws", () => {
+    const { sut, addAccountRepositoryStub } = makeSut();
+    const spyOn = jest
+      .spyOn(addAccountRepositoryStub, "add")
+      .mockRejectedValueOnce(new Error());
+    const accountData = {
+      name: "valid_name",
+      email: "valid_email",
+      password: "valid_password",
+    };
+
+    sut.add(accountData);
+    expect(spyOn).rejects.toThrow();
+  });
 });
