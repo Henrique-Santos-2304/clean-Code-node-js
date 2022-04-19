@@ -1,4 +1,4 @@
-export * from "src/data/protocols/encrypter";
-export * from "src/domain/models/addAccount";
-export * from "src/domain/useCases/addAccount";
+export * from "../../../domain/models";
+export * from "../../../domain/useCases";
 export * from "./db-add-account";
+export * from "../../protocols";

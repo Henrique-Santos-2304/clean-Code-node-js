@@ -3,21 +3,27 @@ import {
   AccountModel,
   AddAccountModel,
   IAddAccount,
+  IAddAccountRepository,
 } from "./index";
 
 class DbAddAccount implements IAddAccount {
   private readonly encrypter: IEncrypter;
-  constructor(encrypter: IEncrypter) {
+  private readonly addAccountRepository: IAddAccountRepository;
+  constructor(
+    encrypter: IEncrypter,
+    addAccountRepository: IAddAccountRepository
+  ) {
     this.encrypter = encrypter;
+    this.addAccountRepository = addAccountRepository;
   }
-  async add(account: AddAccountModel): Promise<AccountModel> {
-    await this.encrypter.encrypt(account.password);
-    return new Promise((resolve) =>
-      resolve({
-        id: "valid_id",
-        ...account,
-      })
-    );
+  async add(accountData: AddAccountModel): Promise<AccountModel> {
+    const hashedPassword = await this.encrypter.encrypt(accountData.password);
+    const newAccount = Object.assign(accountData, {
+      password: hashedPassword,
+      id: "valid_id",
+    });
+    await this.addAccountRepository.add(newAccount);
+    return newAccount;
   }
 }
 
